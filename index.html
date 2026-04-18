@@ -3,264 +3,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HPS Stone Coated Tiles | Premium Roofing Abuja</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>HPS Roofing — Abuja's Premium Stone Coated Roofing</title>
+    <!-- jQuery & FontAwesome -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* MASTER CSS - INCLUDED IN ALL PAGES */
+        /* GLOBAL RESET & VARS */
         :root {
-            --bg-deep: #0a0a0a;
-            --bg-panel: #141414;
-            --gold-primary: #D4AF37;
-            --gold-light: #F3E5AB;
-            --gold-dim: #8a7020;
-            --text-main: #e0e0e0;
-            --text-muted: #888888;
+            --primary: #0F172A;
+            --secondary: #D4AF37;
+            --light: #F8FAFC;
+            --text: #334155;
             --white: #ffffff;
-            --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            --transition-fast: 0.3s ease;
+            --transition: all 0.4s ease;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            line-height: 1.1;
-        }
-
-        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--primary); }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
-        img { width: 100%; display: block; object-fit: cover; }
+        img { max-width: 100%; display: block; }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
-        /* Preloader */
-        #preloader {
-            position: fixed; inset: 0;
-            background: #000; z-index: 99999;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-        }
-        .tile-construct {
-            width: 150px; height: 60px; border: 2px solid #333;
-            position: relative; overflow: hidden; margin-bottom: 30px;
-        }
-        .tile-fill {
-            position: absolute; bottom: 0; left: 0;
-            width: 100%; height: 0%;
-            background: linear-gradient(90deg, #8b4513, #cd853f);
-            animation: constructTile 2.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-        }
-        .loader-text {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold-primary);
-            font-size: 1.5rem; letter-spacing: 3px;
-            opacity: 0; animation: fadeInText 1s forwards 2s;
-        }
-        @keyframes constructTile { 0% { height: 0%; } 100% { height: 100%; } }
-        @keyframes fadeInText { to { opacity: 1; } }
+        /* NAVBAR */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); padding: 15px 0; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1300px; margin: 0 auto; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--secondary); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links li a { color: #cbd5e1; font-weight: 500; font-size: 0.95rem; position: relative; }
+        .nav-links li a:hover, .nav-links li a.active { color: var(--secondary); }
+        .nav-links li a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--secondary); transition: var(--transition); }
+        .nav-links li a:hover::after, .nav-links li a.active::after { width: 100%; }
+        .mobile-toggle { display: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
 
-        /* Nav */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 30px 60px; display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; transition: var(--transition-fast); mix-blend-mode: difference;
+        /* HERO SECTION */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); overflow: hidden; }
+        .hero-bg { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background-size: cover; background-position: center; 
+            background-image: url('https://images.unsplash.com/photo-1587061633437-187ac80e8e7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9vZnxlbnwwfHwwfHx8MA%3D%3D');
+            z-index: -2; 
+            transition: background-image 1s ease-in-out;
         }
-        nav.scrolled { background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(10px); padding: 15px 60px; border-bottom: 1px solid rgba(255,255,255,0.05); mix-blend-mode: normal; }
-        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--white); letter-spacing: -1px; }
-        .nav-menu { display: flex; gap: 40px; }
-        .nav-link { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white); position: relative; padding-bottom: 5px; }
-        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 1px; background: var(--gold-primary); transition: width 0.4s ease; }
-        .nav-link:hover::after { width: 100%; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(15,23,42,0.75), rgba(15,23,42,0.6)); z-index: -1; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; color: var(--white); line-height: 1.2; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; color: #e2e8f0; min-height: 1.6em; }
+        .typewriter-cursor::after { content: '|'; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .btn-main { padding: 15px 40px; background: var(--secondary); color: var(--white); font-weight: 700; border-radius: 50px; font-size: 1rem; border: none; cursor: pointer; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); transition: var(--transition); display: inline-block; }
+        .btn-main:hover { background: #b59326; transform: translateY(-3px); }
 
-        /* Components */
-        .btn-gold { display: inline-block; padding: 18px 45px; background: var(--gold-primary); color: var(--bg-deep); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--gold-primary); transition: var(--transition-fast); }
-        .btn-gold:hover { background: transparent; color: var(--gold-primary); }
+        /* TRUST BADGES */
+        .trust-badges { padding: 30px 0; background: var(--white); border-bottom: 1px solid #e2e8f0; }
+        .badge-container { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 30px; width: 90%; max-width: 1300px; margin: 0 auto; }
+        .badge-item { display: flex; align-items: center; gap: 15px; }
+        .badge-icon { width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 1.5rem; }
+        .badge-text h4 { font-size: 1rem; margin-bottom: 3px; color: var(--primary); }
+        .badge-text p { font-size: 0.85rem; color: #64748b; }
 
-        section { padding: 120px 10%; }
+        /* WHAT WE DO SECTION */
+        .what-we-do { padding: 100px 0; background: var(--white); }
+        .container { width: 90%; max-width: 1300px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.8rem; font-weight: 700; color: var(--primary); position: relative; display: inline-block; }
+        .section-header h2 span { color: var(--secondary); }
+        .section-header h2::after { content: ''; position: absolute; width: 80px; height: 3px; background: var(--secondary); bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 5px; }
         
-        /* Animations */
-        .reveal-up { opacity: 0; transform: translateY(60px); transition: all 1s ease; }
-        .reveal-up.active { opacity: 1; transform: translateY(0); }
-        .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 1s ease; }
-        .reveal-left.active { opacity: 1; transform: translateX(0); }
-        .reveal-right { opacity: 0; transform: translateX(60px); transition: all 1s ease; }
-        .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .wwd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .wwd-images { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .wwd-images .img-card { border-radius: 20px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1); transition: var(--transition); }
+        .wwd-images .img-card:hover { transform: scale(1.02); }
+        .wwd-images img { width: 100%; height: 260px; object-fit: cover; display: block; }
+        .wwd-images .img-card:first-child { grid-column: span 2; }
+        .wwd-images .img-card:first-child img { height: 300px; }
 
-        /* Footer */
-        footer { background: var(--bg-panel); padding: 100px 10% 40px; border-top: 1px solid #222; }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 80px; }
-        .footer-col h4 { color: var(--gold-primary); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
+        .wwd-content h3 { font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: var(--primary); }
+        .wwd-content .gold-line { width: 80px; height: 3px; background: var(--secondary); margin-bottom: 25px; border-radius: 5px; }
+        .wwd-content p { margin-bottom: 20px; line-height: 1.8; color: #475569; font-size: 1.05rem; }
+        .wwd-feature-list { margin: 30px 0; }
+        .wwd-feature-list li { margin-bottom: 18px; display: flex; align-items: center; gap: 15px; font-weight: 500; }
+        .wwd-feature-list i { color: var(--secondary); font-size: 1.5rem; width: 30px; }
+        .btn-outline { display: inline-block; padding: 12px 30px; border: 2px solid var(--primary); color: var(--primary); font-weight: 600; border-radius: 40px; transition: var(--transition); }
+        .btn-outline:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* FEATURES SECTION */
+        .features { padding: 80px 0; background: var(--light); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; width: 90%; max-width: 1300px; margin: 0 auto; }
+        .feature-card { background: var(--white); padding: 40px 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); }
+        .feature-card:hover { transform: translateY(-10px); }
+        .icon-box { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; display: inline-block; }
+        .feature-card:hover .icon-box { animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* RECENT PROJECTS */
+        .recent-projects { padding: 100px 0; background: var(--white); }
+        .projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .project-card { position: relative; border-radius: 15px; overflow: hidden; height: 250px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .project-card:hover img { transform: scale(1.1); }
+        .project-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(15,23,42,0.9)); padding: 20px; color: white; transform: translateY(0); }
+        .project-overlay h4 { color: white; font-size: 1.1rem; margin-bottom: 5px; }
+        .project-overlay p { font-size: 0.85rem; opacity: 0.9; }
+        .project-overlay i { color: var(--secondary); margin-right: 5px; }
+
+        /* SERVICE AREAS + FAQ (2-Column) */
+        .service-faq { padding: 80px 0; background: var(--light); }
+        .sf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .areas-card { background: var(--white); padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .areas-card h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .areas-card h3 i { color: var(--secondary); }
+        .area-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .area-tag { background: var(--light); padding: 8px 18px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; color: var(--primary); border: 1px solid #e2e8f0; }
+        .area-tag i { color: var(--secondary); margin-right: 6px; font-size: 0.8rem; }
+
+        .faq-card { background: var(--white); padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .faq-card h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .faq-card h3 i { color: var(--secondary); }
+        .faq-item { border-bottom: 1px solid #e2e8f0; padding: 18px 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--primary); }
+        .faq-question i { color: var(--secondary); transition: transform 0.3s; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: #64748b; line-height: 1.6; }
+        .faq-item.active .faq-answer { max-height: 150px; padding-top: 15px; }
+        .faq-item.active .faq-question i { transform: rotate(45deg); }
+
+        /* REVIEWS SECTION */
+        .reviews { padding: 100px 0; background: var(--white); }
+        .reviews h2 { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+        .review-slider { display: flex; gap: 20px; overflow-x: auto; padding: 20px 5%; scroll-snap-type: x mandatory; }
+        .review-card { min-width: 320px; background: var(--light); padding: 30px; border-radius: 15px; scroll-snap-align: center; position: relative; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .stars { color: var(--secondary); margin-bottom: 15px; }
+        .quote-icon { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: rgba(212, 175, 55, 0.1); }
+        .client-info { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+        .client-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+
+        /* SUPPLIER LOGOS */
+        .suppliers { padding: 60px 0; background: var(--white); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+        .suppliers h3 { text-align: center; margin-bottom: 40px; color: #64748b; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; font-size: 1rem; }
+        .supplier-logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 60px; }
+        .supplier-logo { font-size: 1.8rem; font-weight: 700; color: #94a3b8; display: flex; align-items: center; gap: 8px; opacity: 0.7; transition: var(--transition); }
+        .supplier-logo:hover { opacity: 1; color: var(--primary); }
+        .supplier-logo i { color: var(--secondary); font-size: 2rem; }
+
+        /* CTA BANNER */
+        .cta-banner { padding: 80px 0; background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%); color: white; text-align: center; }
+        .cta-content h2 { font-size: 2.5rem; color: white; margin-bottom: 20px; }
+        .cta-content p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; }
+        .cta-buttons { display: flex; gap: 20px; justify-content: center; }
+        .btn-secondary { padding: 15px 40px; background: transparent; color: white; font-weight: 700; border-radius: 50px; font-size: 1rem; border: 2px solid var(--secondary); cursor: pointer; transition: var(--transition); display: inline-block; }
+        .btn-secondary:hover { background: var(--secondary); color: var(--primary); }
+
+        /* EMERGENCY BANNER */
+        .emergency-banner { background: #ef4444; color: white; padding: 12px 0; text-align: center; font-weight: 500; }
+        .emergency-banner i { margin-right: 10px; animation: pulse 1.5s infinite; }
+        .emergency-banner a { color: white; text-decoration: underline; font-weight: 700; margin-left: 15px; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: #94a3b8; padding: 80px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; width: 90%; max-width: 1300px; margin: 0 auto 50px; }
+        .footer-col h3 { color: var(--white); margin-bottom: 25px; font-size: 1.2rem; }
         .footer-links li { margin-bottom: 15px; }
-        .footer-links a { color: var(--text-muted); font-size: 0.9rem; }
-        .footer-links a:hover { color: var(--white); padding-left: 5px; }
-        .wa-float { position: fixed; bottom: 40px; right: 40px; background: var(--gold-primary); color: var(--bg-deep); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 999; animation: pulseBtn 2s infinite; }
-        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+        .footer-links a:hover { color: var(--secondary); padding-left: 5px; }
+        .social-icons a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; color: var(--white); margin-right: 10px; }
+        .social-icons a:hover { background: var(--secondary); transform: rotate(360deg); }
+        .copyright { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.9rem; }
 
-        /* HOME PAGE SPECIFIC */
-        #hero { height: 100vh; width: 100%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1654783860099-d031f81bdd02?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFuc2lvbiUyMHJvb2YlMjBpbWFnZXMlMjBmb3IlMjBiYWNrZ3JvdW5kJTIwNGt8ZW58MHx8MHx8fDA%3D') no-repeat center center/cover; transform: scale(1.1); filter: brightness(0.4); transition: transform 10s ease; z-index: -2; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,0.3), var(--bg-deep)); z-index: -1; }
-        .hero-content { max-width: 900px; padding: 0 20px; opacity: 0; transform: translateY(50px); animation: heroEnter 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards 0.5s; }
-        @keyframes heroEnter { to { opacity: 1; transform: translateY(0); } }
-        .hero-sub { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold-primary); margin-bottom: 20px; display: block; }
-        .hero-title { font-size: 5rem; color: var(--white); margin-bottom: 30px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 70px; right: -100%; width: 70%; height: 100vh; background: var(--primary); flex-direction: column; padding: 40px; transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: block; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .wwd-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .sf-grid { grid-template-columns: 1fr; }
+            .badge-container { justify-content: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
 
-        .editorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .editorial-text h2 { font-size: 3.5rem; color: var(--gold-primary); margin-bottom: 30px; line-height: 1; }
-        .editorial-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; }
-        .editorial-img-wrapper { position: relative; overflow: hidden; }
-        .editorial-img-wrapper img { transition: transform 1.5s ease; }
-        .editorial-img-wrapper:hover img { transform: scale(1.05); }
-
-        .feature-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
-        .feature-card { background: var(--bg-deep); padding: 60px 40px; transition: var(--transition-fast); border-top: 1px solid transparent; }
-        .feature-card:hover { border-top: 1px solid var(--gold-primary); transform: translateY(-5px); }
-        .feature-icon { font-size: 2.5rem; color: var(--gold-primary); margin-bottom: 25px; }
-
-        .projects-wrapper { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px; }
-        .projects-wrapper::-webkit-scrollbar { display: none; }
-        .project-item { min-width: 400px; position: relative; }
-        .project-img { height: 500px; width: 100%; object-fit: cover; filter: grayscale(100%); transition: all 0.6s ease; }
-        .project-item:hover .project-img { filter: grayscale(0%); transform: scale(0.98); }
-        .project-info { padding-top: 20px; border-left: 2px solid var(--gold-dim); padding-left: 20px; margin-top: 20px; }
-
-        @media (max-width: 900px) {
-            .hero-title { font-size: 3rem; } .editorial-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; } nav { padding: 20px; } .nav-menu { display: none; }
+        @media (max-width: 480px) {
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="tile-construct"><div class="tile-fill"></div></div>
-        <div class="loader-text">HPS ROOFING</div>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <i class="fa-solid fa-droplet"></i> Leaking roof? Emergency repairs available — Same-day service in Abuja 
+        <a href="tel:09087248106"><i class="fa-solid fa-phone"></i> Call Now: 0908 724 8106</a>
     </div>
 
-    <nav>
-        <div class="logo">HPS.</div>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="products.html" class="nav-link">Products</a></li>
-            <li><a href="services.html" class="nav-link">Services</a></li>
-            <li><a href="reviews.html" class="nav-link">Reviews</a></li>
-            <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-        <a href="https://wa.me/2349087248106" class="btn-gold" style="padding: 10px 25px; font-size: 0.8rem;">Get Quote</a>
-    </nav>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-house-chimney"></i> HPS <span>Roofing</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services & Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-toggle"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
 
-    <section id="hero">
-        <div class="hero-bg"></div>
+    <!-- Hero Section (Better stone-coated roofing image) -->
+    <section class="hero">
+        <div class="hero-bg" id="heroBg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <span class="hero-sub">Abuja's Premier Roofing Partner</span>
-            <h1 class="hero-title">Engineered for Silence. <br>Built for Life.</h1>
-            <a href="products.html" class="btn-gold">Explore Collections</a>
+            <h1>Best Roofing Contractor in <span style="color: var(--secondary)">Abuja</span></h1>
+            <p>We provide <span id="typewriter" class="typewriter-cursor"></span></p>
+            <a href="contact.html" class="btn-main">Get a Free Quote</a>
         </div>
     </section>
 
-    <section>
-        <div class="editorial-grid">
-            <div class="editorial-text reveal-up">
-                <span style="color: var(--gold-primary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; display:block; margin-bottom:10px;">The HPS Difference</span>
-                <h2>Redefining Nigerian Roofing Standards</h2>
-                <p>At HPS, we believe a roof is more than shelter—it is the crown of your home. Our Stone Coated Tiles combine the rustic elegance of traditional shingles with the advanced durability of Fiber Cement technology.</p>
-                <p>Designed specifically for the harsh Nigerian climate, our tiles resist the deafening noise of rainstorms, reflect the intense solar heat of Abuja, and stand defiant against rust and fire.</p>
+    <!-- Trust Badges -->
+    <section class="trust-badges">
+        <div class="badge-container">
+            <div class="badge-item animate-on-scroll">
+                <div class="badge-icon"><i class="fa-solid fa-certificate"></i></div>
+                <div class="badge-text">
+                    <h4>Certified Installer</h4>
+                    <p>Gerard • Decra • Roser</p>
+                </div>
             </div>
-            <div class="editorial-img-wrapper reveal-right">
-                <img src="https://images.unsplash.com/photo-1774778565647-c8f5154e3213?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y2h1cmNoJTIwcm9vZiUyMGNsb3NlJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D" alt="Stone Coated Texture">
+            <div class="badge-item animate-on-scroll">
+                <div class="badge-icon"><i class="fa-solid fa-medal"></i></div>
+                <div class="badge-text">
+                    <h4>SON Certified</h4>
+                    <p>Quality Approved Materials</p>
+                </div>
+            </div>
+            <div class="badge-item animate-on-scroll">
+                <div class="badge-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                <div class="badge-text">
+                    <h4>10+ Years</h4>
+                    <p>Serving Abuja Homes</p>
+                </div>
+            </div>
+            <div class="badge-item animate-on-scroll">
+                <div class="badge-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+                <div class="badge-text">
+                    <h4>500+ Roofs</h4>
+                    <p>Completed Projects</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section style="background-color: var(--bg-panel);">
-        <div class="feature-cards">
-            <div class="feature-card reveal-up">
-                <i class="fas fa-volume-mute feature-icon"></i>
-                <h3>Silent Rain Technology</h3>
-                <p>Experience peace during storms. Our stone granules absorb impact noise.</p>
+    <!-- WHAT WE DO SECTION -->
+    <section class="what-we-do">
+        <div class="container">
+            <div class="section-header">
+                <h2>What <span>We Do</span></h2>
+                <p style="max-width: 700px; margin: 20px auto 0; color: #64748b;">Expert roofing solutions that combine durability with elegance</p>
             </div>
-            <div class="feature-card reveal-up" style="transition-delay: 0.1s;">
-                <i class="fas fa-temperature-low feature-icon"></i>
-                <h3>Thermal Efficiency</h3>
-                <p>Advanced heat reflection keeps your interiors 5°C cooler.</p>
+            <div class="wwd-grid">
+                <div class="wwd-images animate-on-scroll">
+                    <div class="img-card">
+                        <img src="https://images.unsplash.com/photo-1587061633437-187ac80e8e7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9vZnxlbnwwfHwwfHx8MA%3D%3D" alt="Stone coated roof installation">
+                    </div>
+                    <div class="img-card">
+                        <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Residential roofing">
+                    </div>
+                    <div class="img-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1682617326551-4749611516f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cm9vZnxlbnwwfHwwfHx8MA%3D%3D" alt="Roofing work in progress">
+                    </div>
+                </div>
+                <div class="wwd-content animate-on-scroll">
+                    <h3>Premium Stone Coated Roofing</h3>
+                    <div class="gold-line"></div>
+                    <p>At HPS Roofing, we specialize in <strong>stone coated metal tiles</strong> and modern roofing systems that withstand Abuja's climate while delivering unmatched aesthetics. From luxury residences to commercial projects, our team ensures precision installation and long-term performance.</p>
+                    <p>We blend cutting‑edge materials with local expertise — your roof stays cool, quiet, and beautiful for decades.</p>
+                    <ul class="wwd-feature-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Stone coated steel (Gerard, Decra, Roser)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Fiber cement boards & waterproofing</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Complete roof replacement & new construction</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Maintenance & leak repairs</li>
+                    </ul>
+                    <a href="services.html" class="btn-outline">Explore Services <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+                </div>
             </div>
-            <div class="feature-card reveal-up" style="transition-delay: 0.2s;">
-                <i class="fas fa-shield-alt feature-icon"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-grid">
+            <div class="feature-card animate-on-scroll">
+                <div class="icon-box"><i class="fa-solid fa-wind"></i></div>
+                <h3>Wind Resistant</h3>
+                <p>Engineered for Abuja's storms — interlocking panels resist uplift and keep your home safe.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3>50-Year Warranty</h3>
-                <p>Invest once, rest for a lifetime. Rust-proof and rot-proof.</p>
+                <p>Stone-coated steel with Alu-Zinc coating. No rust, no fading. Built to outlast.</p>
+            </div>
+            <div class="feature-card animate-on-scroll">
+                <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
+                <h3>Aesthetic Appeal</h3>
+                <p>Choose from classic profiles to modern shingles — elevate your property's value.</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <div style="margin-bottom: 50px;" class="reveal-up">
-            <span style="color: var(--gold-primary); text-transform: uppercase;">Portfolio</span>
-            <h2 style="font-size: 3rem; color: var(--white);">Recent Masterpieces</h2>
-        </div>
-        <div class="projects-wrapper reveal-up">
-            <div class="project-item">
-                <img src="https://images.unsplash.com/photo-1589314908950-5533018ab62f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFuc2lvbiUyMHJvb2YlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D" class="project-img" alt="Project 1">
-                <div class="project-info"><h4 style="color:var(--white)">The Gwarinpa Villa</h4><p style="color:var(--text-muted)">Roman Profile - Terracotta</p></div>
+    <!-- Recent Projects Preview -->
+    <section class="recent-projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recent <span>Projects</span></h2>
+                <p style="max-width: 700px; margin: 20px auto 0; color: #64748b;">See our craftsmanship across Abuja's finest neighborhoods</p>
             </div>
-            <div class="project-item">
-                <img src="https://images.unsplash.com/photo-1598555815256-50d050a3e1d6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1hbnNpb24lMjByb29mJTIwaW1hZ2VzfGVufDB8fDB8fHww" class="project-img" alt="Project 2">
-                <div class="project-info"><h4 style="color:var(--white)">Maitama Residence</h4><p style="color:var(--text-muted)">Shake Profile - Charcoal</p></div>
-            </div>
-            <div class="project-item">
-                <img src="https://images.unsplash.com/photo-1775425775261-3832b965479f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbnNpb24lMjByb29mJTIwaW1hZ2VzfGVufDB8fDB8fHww" class="project-img" alt="Project 3">
-                <div class="project-info"><h4 style="color:var(--white)">Kubwa Extension</h4><p style="color:var(--text-muted)">Shingle Profile - Slate Grey</p></div>
+            <div class="projects-grid">
+                <div class="project-card animate-on-scroll">
+                    <img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Kubwa project">
+                    <div class="project-overlay">
+                        <h4>Luxury Villa</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Kubwa Extension II</p>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll">
+                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gwarinpa project">
+                    <div class="project-overlay">
+                        <h4>Duplex Residence</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Gwarinpa Estate</p>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1621872550846-af5b7091a155?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGNvbW1lcmNpYWwlMjBjb21wbGV4JTIwcm9vZmluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Maitama project">
+                    <div class="project-overlay">
+                        <h4>Commercial Complex</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Maitama</p>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1654535095187-769ba364ad7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vZGVybiUyMGJ1bmdhbG93fGVufDB8fDB8fHww" alt="Apo project">
+                    <div class="project-overlay">
+                        <h4>Modern Bungalow</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> Apo Resettlement</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Service Areas + FAQ (2-Column) -->
+    <section class="service-faq">
+        <div class="container">
+            <div class="sf-grid">
+                <!-- Service Areas -->
+                <div class="areas-card animate-on-scroll">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Service Areas in Abuja</h3>
+                    <p>We provide premium roofing services across the FCT and surrounding areas.</p>
+                    <div class="area-tags">
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Kubwa</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Gwarinpa</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Maitama</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Asokoro</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Wuse</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Apo</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Jabi</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Lokogoma</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Garki</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Utako</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Kado</span>
+                        <span class="area-tag"><i class="fa-solid fa-circle-check"></i> Durumi</span>
+                    </div>
+                    <p style="margin-top: 20px; font-style: italic; color: #64748b;">Don't see your area? <a href="contact.html" style="color: var(--secondary);">Contact us</a> — we likely cover it!</p>
+                </div>
+                <!-- FAQ -->
+                <div class="faq-card animate-on-scroll">
+                    <h3><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h3>
+                    <div class="faq-item active">
+                        <div class="faq-question">
+                            <span>How long does roof installation take?</span>
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Most residential projects are completed within 5-10 working days, depending on roof size and complexity.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do you offer warranty on your work?</span>
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! Materials come with up to 50-year manufacturer warranty. We also provide a 5-year workmanship guarantee.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What areas do you serve?</span>
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            We serve all of Abuja FCT including Kubwa, Gwarinpa, Maitama, Asokoro, Apo, and surrounding satellite towns.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do you handle roof repairs only?</span>
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Absolutely. We offer leak repairs, partial replacements, and full roof restoration services.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supplier Logos -->
+    <section class="suppliers">
+        <div class="container">
+            <h3>Trusted Materials From Industry Leaders</h3>
+            <div class="supplier-logos">
+                <div class="supplier-logo"><i class="fa-solid fa-industry"></i> GERARD</div>
+                <div class="supplier-logo"><i class="fa-solid fa-building"></i> DECRA</div>
+                <div class="supplier-logo"><i class="fa-solid fa-house"></i> ROSER</div>
+                <div class="supplier-logo"><i class="fa-solid fa-layer-group"></i> ELEGANT</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2>What Our Clients Say</h2>
+        <div class="review-slider">
+            <div class="review-card">
+                <i class="fa-solid fa-quote-right quote-icon"></i>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"HPS Roofing transformed our home in Kubwa. The installation was fast and the finish is top notch. No more leaks."</p>
+                <div class="client-info">
+                    <img src="https://picsum.photos/seed/user1/100/100" class="client-avatar" alt="Ahmed">
+                    <div><h4>Ahmed Musa</h4><small>Kubwa Extension II</small></div>
+                </div>
+            </div>
+            <div class="review-card">
+                <i class="fa-solid fa-quote-right quote-icon"></i>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"Best stone coated tiles in Abuja. Professional team, clean work, and they finished ahead of schedule."</p>
+                <div class="client-info">
+                    <img src="https://picsum.photos/seed/user2/100/100" class="client-avatar" alt="Sarah">
+                    <div><h4>Sarah Johnson</h4><small>Gwarinpa</small></div>
+                </div>
+            </div>
+            <div class="review-card">
+                <i class="fa-solid fa-quote-right quote-icon"></i>
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p>"From consultation to final cleanup, HPS delivered. Highly recommend for anyone building in Abuja."</p>
+                <div class="client-info">
+                    <img src="https://picsum.photos/seed/user3/100/100" class="client-avatar" alt="Emeka">
+                    <div><h4>Emeka Okafor</h4><small>Apo</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Protect Your Home?</h2>
+                <p>Get a free, no-obligation estimate within 24 hours</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn-main">Get Free Estimate</a>
+                    <a href="tel:09087248106" class="btn-secondary"><i class="fa-solid fa-phone"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="footer-grid">
-            <div class="footer-brand"><h2>HPS ROOFING</h2><p style="color: var(--text-muted); line-height: 1.6;">Plot M17, Josephat Mojekwu Ave.<br>Kubwa Extension Phase IIII.</p></div>
-            <div class="footer-col"><h4>Navigation</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="services.html">Services</a></li></ul></div>
-            <div class="footer-col"><h4>Products</h4><ul class="footer-links"><li><a href="products.html">Roman Style</a></li><li><a href="products.html">Shake Style</a></li><li><a href="products.html">Shingle Style</a></li></ul></div>
-            <div class="footer-col"><h4>Contact</h4><p style="color:var(--text-muted)">09087248106</p><p style="color:var(--gold-primary)">Open 24 Hours</p></div>
+            <div class="footer-col">
+                <h3>HPS Roofing</h3>
+                <p>Premium stone coated roofing solutions in Abuja. Durable, elegant, and reliable.</p>
+                <div class="social-icons" style="margin-top: 20px;">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fa-solid fa-location-dot" style="margin-right:10px; color:var(--secondary)"></i> Plot M17, Kubwa Ext III, Abuja</li>
+                    <li><i class="fa-solid fa-phone" style="margin-right:10px; color:var(--secondary)"></i> 0908 724 8106</li>
+                    <li><i class="fa-solid fa-envelope" style="margin-right:10px; color:var(--secondary)"></i> info@hpsroofing.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 HPS Roofing. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <a href="https://wa.me/2349087248106" class="wa-float"><i class="fab fa-whatsapp"></i></a>
-
     <script>
-        // GLOBAL JS
-        $(document).ready(function() {
-            setTimeout(function(){ $('#preloader').fadeOut(800); }, 2500);
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 50) { $('nav').addClass('scrolled'); }
-                else { $('nav').removeClass('scrolled'); }
-                var scroll = $(window).scrollTop();
-                $('.hero-bg').css('transform', 'scale(1.1) translateY(' + scroll * 0.5 + 'px)');
-            });
-            function reveal() {
-                var reveals = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right");
-                for (var i = 0; i < reveals.length; i++) {
-                    var windowHeight = window.innerHeight;
-                    var elementTop = reveals[i].getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+        $(document).ready(function(){
+            // Hero background slider
+            const images = [
+                'https://images.unsplash.com/photo-1587061633437-187ac80e8e7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9vZnxlbnwwfHwwfHx8MA%3D%3D',
+                'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1920',
+                'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1920',
+                'https://images.pexels.com/photos/1570409/pexels-photo-1570409.jpeg?auto=compress&cs=tinysrgb&w=1920'
+            ];
+            let currentImage = 0;
+            setInterval(() => {
+                currentImage = (currentImage + 1) % images.length;
+                $('#heroBg').css('background-image', `url('${images[currentImage]}')`);
+            }, 5000);
+
+            // Typewriter effect
+            const words = ["Stone Coated Tiles", "Waterproof Solutions", "Modern Roofing Designs", "Fiber Cement Boards"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const typeSpeed = 100;
+            const deleteSpeed = 50;
+            const pauseTime = 2000;
+            const typeElement = document.getElementById("typewriter");
+
+            function typeWriter() {
+                const currentWord = words[wordIndex];
+                if (isDeleting) {
+                    typeElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typeElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
                 }
+                let nextSpeed = isDeleting ? deleteSpeed : typeSpeed;
+                if (!isDeleting && charIndex === currentWord.length) {
+                    nextSpeed = pauseTime;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                }
+                setTimeout(typeWriter, nextSpeed);
             }
-            window.addEventListener("scroll", reveal); reveal();
+            typeWriter();
+
+            // Scroll animation
+            $(window).scroll(function() {
+                $('.animate-on-scroll').each(function() {
+                    var bottom_of_object = $(this).offset().top + 50;
+                    var bottom_of_window = $(window).scrollTop() + $(window).height();
+                    if (bottom_of_window > bottom_of_object) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }).scroll();
+
+            // FAQ Accordion
+            $('.faq-question').click(function() {
+                $(this).parent('.faq-item').toggleClass('active');
+                $(this).parent('.faq-item').siblings().removeClass('active');
+            });
+
+            // Mobile menu toggle
+            $('.mobile-toggle').click(function() {
+                $('.nav-links').toggleClass('active');
+            });
+
+            $('.nav-links a').click(function() {
+                $('.nav-links').removeClass('active');
+            });
         });
     </script>
 </body>
